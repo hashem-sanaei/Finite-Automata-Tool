@@ -1,0 +1,1 @@
+{"nodes": [{"id": "B", "label": "B"}, {"id": "A", "label": "Accept State"}], "edges": [{"from": "AA", "to": "B", "label": "1"}, {"from": "A", "to": "B", "label": "1"}, {"from": "A", "to": "A", "label": "0"}, {"from": "B", "to": "A", "label": "0"}]}
