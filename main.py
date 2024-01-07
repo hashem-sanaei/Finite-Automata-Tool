@@ -24,7 +24,6 @@ class DFA:
         self.alphabet = alphabet
 
     def accepts(self, string):
-        # Check if the string is accepted by the DFA
         current_state = self.start_state
         for char in string:
             if current_state not in self.transitions or char not in self.transitions[current_state]:
@@ -34,7 +33,6 @@ class DFA:
     
 
 class NFA:
-    # Similar structure to DFA, but transitions allow for multiple next states
     def __init__(self):
         self.alphabet = set()
         self.states = set()
@@ -62,7 +60,6 @@ class NFA:
         self.alphabet = alphabet
 
     def accepts(self, string):
-        # Check if the string is accepted by the NFA
         current_states = set()
         current_states.add(self.start_state)
         for char in string:
@@ -77,8 +74,8 @@ class NFA:
 
 def convert_nfa_to_dfa(nfa):
     dfa = DFA()
-    unmarked_states = []  # States in DFA that have not been processed yet
-    dfa_start_state = frozenset([nfa.start_state])  # DFA start state is a set containing the NFA start state
+    unmarked_states = [] 
+    dfa_start_state = frozenset([nfa.start_state]) 
     dfa.set_start_state(dfa_start_state)
     unmarked_states.append(dfa_start_state)
     dfa.add_state(dfa_start_state)
@@ -86,7 +83,6 @@ def convert_nfa_to_dfa(nfa):
     while unmarked_states:
         current_dfa_state = unmarked_states.pop()
         
-        # Check all input characters
         for input_char in set().union(*[set(transitions.keys()) for transitions in nfa.transitions.values()]):
             next_states = set()
             for nfa_state in current_dfa_state:
@@ -98,10 +94,8 @@ def convert_nfa_to_dfa(nfa):
                 dfa.add_state(next_dfa_state)
                 unmarked_states.append(next_dfa_state)
 
-            # Add transition in DFA
             dfa.add_transition(current_dfa_state, input_char, next_dfa_state)
 
-    # Determine accept states in DFA
     for dfa_state in dfa.states:
         if any(state in nfa.accept_states for state in dfa_state):
             dfa.accept_states.add(dfa_state)
@@ -142,7 +136,6 @@ def open_browser():
     def start_server():
         os.system('python -m http.server 5500')
 
-    # Start server in a separate thread
     threading.Thread(target=start_server).start()
 
     url = 'http://127.0.0.1:5500/plot.html'
@@ -156,6 +149,15 @@ def add_multiple_transitions(automaton, state_from, input_char, states_to):
         automaton.add_transition(state_from, input_char, state_to)
 
 
+def user_interface():
+    """
+    This function represents the user interface for the Finite Automata Tool.
+    It allows the user to interact with the tool and perform various operations
+    such as setting the alphabet, creating DFA/NFA, adding states and transitions,
+    testing strings, converting NFA to DFA, showing automaton details, and more.
+    """
+    current_automaton = DFA()
+    # Rest of the code...
 def user_interface():
     current_automaton = DFA()
     is_dfa = True
